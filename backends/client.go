@@ -6,6 +6,7 @@ import (
 
 	"github.com/kelseyhightower/confd/backends/consul"
 	"github.com/kelseyhightower/confd/backends/dynamodb"
+	"github.com/kelseyhightower/confd/backends/docker"
 	"github.com/kelseyhightower/confd/backends/env"
 	"github.com/kelseyhightower/confd/backends/etcd"
 	"github.com/kelseyhightower/confd/backends/etcdv3"
@@ -60,6 +61,8 @@ func New(config Config) (StoreClient, error) {
 		return rancher.NewRancherClient(backendNodes)
 	case "redis":
 		return redis.NewRedisClient(backendNodes, config.ClientKey, config.Separator)
+	case "docker":
+		return docker.NewDockerClient()
 	case "env":
 		return env.NewEnvClient()
 	case "file":
